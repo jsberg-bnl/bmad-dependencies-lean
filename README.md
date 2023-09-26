@@ -9,6 +9,15 @@ The primary advantages of this are
 * A smaller footprint for your Bmad distribution
 * Packages only need to be built once, no matter how many times you build updated releases of Bmad
 * It makes it easier to work with Bmad from the Git tree, including having multiple versions in worktrees
+
+Using these dependencies assumes you have the following packages installed on your system via your system's package manager:
+* [CMake](https://cmake.org/)
+* [FFTW](https://www.fftw.org/)
+* [GSL](https://www.gnu.org/software/gsl/)
+* [HDF5](https://www.hdfgroup.org/solutions/hdf5/)
+* [LAPACK](https://www.netlib.org/lapack/)
+
+It also assumes you are building Bmad using the [PLplot](https://plplot.sourceforge.net/) plotting library (included in these packages) rather than using [PGPLOT](https://sites.astro.caltech.edu/~tjp/pgplot/)
 ## Build instructions
 Starting in the directory with the files, executing `./build-deps.sh` will build the dependencies and install them under `$HOME/Software/Bmad/packages`. If you wish to use a different install prefix, you can set the environment variable `prefix` to the installation prefix that you would like. This can be done in a single line with a POSIX compatible shell (such as Bash) with
 ```
@@ -27,5 +36,5 @@ where `$p` is replaced with the prefix you used in the package installation. Any
 ## Included packages
 * [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Version 1.5.0 is included. While their documentation claims compatibility only with GSL 2.6, it appears to work fine with GSL 2.7.
 * [LAPACK95](https://www.netlib.org/lapack95/).
-* [plplot](https://plplot.sourceforge.net/)
+* [PLplot](https://plplot.sourceforge.net/)
 * [xraylib](https://github.com/tschoonj/xraylib)
