@@ -15,6 +15,8 @@ Starting in the directory with the files, executing `./build-deps.sh` will build
 prefix=/my/favorite/path ./build-deps.sh
 ```
 The advantage of the single line (over `export prefix=/my/favorite/path`) is that the environment variable is set only temporarily for the execution of `build-deps.sh`. Note that the script installs the files, so it assumes that you have write access to the specified prefix. This prefix should _not_ be where your operating system normally installs packages.
+
+The CMake script for LAPACK95 assumes that your system lapack library is installed in /usr/lib/liblapack.so. If that is not the case, `lapack95.cmake` should be edited accordingly.
 ## Using the packages for building [Bmad](https://github.com/bmad-sim/bmad-ecosystem)
 For this to make sense, you should have some understanding of building Bmad; see the instructions [here](https://wiki.classe.cornell.edu/ACC/ACL/OffsiteDoc). First you need to specify environment variables to tell Bmad where to find the packages. While you could do this by editing `dist_prefs`, I recommend a different mechanism. Instead, create a file called `user_prefs`, and either place in the `util` directory of the Bmad distribution, or instead place it anywhere you like (and name it whatever you like), and set the environment variable `BMAD_USER_PREFS` to the full path (including the filename) of the file. Within that file, put the following lines:
 ```
