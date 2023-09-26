@@ -1,4 +1,4 @@
-# A smaller set of Bmad(https://github.com/bmad-sim/bmad-ecosystem) dependencies
+# A smaller set of [Bmad](https://github.com/bmad-sim/bmad-ecosystem) dependencies
 This package set as a few goals
 * Put together a smaller set of [Bmad dependencies](https://github.com/bmad-sim/bmad-external-deps), removing dependencies that can be readily installed on most systems
 * Start from (and include) the original sources, using the most recent released versions
