@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.12)
 project(lapack95)
 # Get variables with object file lists from the makefile
 execute_process(COMMAND make -n -p
