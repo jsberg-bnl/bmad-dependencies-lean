@@ -4,6 +4,7 @@ if [ -z "$no_fgsl" ]
 then
     unset fgsl_version
     case $(pkg-config --modversion gsl) in
+	1*) fgsl_version=1.0.0 ;;
 	2.5*) fgsl_version=1.4.0 ;;
 	2.[67]*) fgsl_version=1.5.0 ;;
     esac
