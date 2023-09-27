@@ -2,14 +2,25 @@
 prefix=${prefix:-$HOME/Software/Bmad/packages}
 if [ -z "$no_fgsl" ]
 then
-    tar xf fgsl-1.5.0.tar.gz
-    mkdir fgsl-build
-    cd fgsl-build
-    ../fgsl-1.5.0/configure --prefix=$prefix --disable-static
-    make
-    make install
-    cd ..
-    rm -rf fgsl-1.5.0 fgsl-build
+    unset fgsl_version
+    case $(pkg-config --modversion gsl) in
+	2.5*) fgsl_version=1.4.0 ;;
+	2.[67]*) fgsl_version=1.5.0 ;;
+    esac
+    if [ -n "$fgsl_version" ]
+    then
+	tar xf fgsl-$fgsl_version.tar.gz
+	mkdir fgsl-build
+	cd fgsl-build
+	../fgsl-$fgsl_version/configure --prefix=$prefix --disable-static
+	make
+	make install
+	cd ..
+	rm -rf fgsl-$fgsl_version fgsl-build
+    else
+	echo "No compatible gsl version found, cannot build fgsl" 1>&2
+	exit 1
+    fi
 fi
 if [ -z "$no_lapack95" ]
 then

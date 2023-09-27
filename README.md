@@ -34,7 +34,7 @@ export BMAD_USER_LIB_DIRS="$p/lib"
 ```
 where `$p` is replaced with the prefix you used in the package installation. Any other modifications to the defaults in `dist_prefs` can be placed in this file as well, rather than modifying `dist_prefs`.
 ## Included packages
-* [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Version 1.5.0 is included. While their documentation claims compatibility only with GSL 2.6, it appears to work fine with GSL 2.7.
+* [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Versions 1.4.0 and 1.5.0 and included; the correct version is built based on the installed version of GSL. While the FGSL documentation claims version 1.5.0 is compatible only with GSL 2.6, it appears to work fine with GSL 2.7.
 * [LAPACK95](https://www.netlib.org/lapack95/).
 * [PLplot](https://plplot.sourceforge.net/)
 * [xraylib](https://github.com/tschoonj/xraylib)
