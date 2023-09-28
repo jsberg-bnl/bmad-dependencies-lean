@@ -1,5 +1,28 @@
 #!/bin/sh -
 prefix=${prefix:-$HOME/Software/Bmad/packages}
+# Need at least cmake version 3.13; build cmake if we don't have it
+cv=$(cmake --version)
+cv=${cv#cmake version }
+cv=${cv%%
+*}
+cvmaj=${cv%%.*}
+cv=${cv#$cvmaj.}
+cvmin=${cv%%.*}
+if [ -z "$cvmaj" ] || [ -n "${cvmaj#[0-9]}" ] || [ ! "$cvmaj" -ge 3 ] || [ "$cvmaj" -eq 3 ] && [ ! "$cvmin" -ge 12 ]
+then
+    cver=3.27.6
+    tar xf cmake-$cver.tar.gz
+    mkdir cmake-build
+    cd cmake-build
+    ../cmake-$cver/bootstrap --prefix=$prefix --parallel=4
+    make -j 4
+    make install
+    cd ..
+    rm -rf cmake-build cmake-$cver
+    unset cver
+    export PATH=$prefix/bin:$PATH
+fi
+unset cv cvmin cvmaj
 if [ -z "$no_fgsl" ]
 then
     unset fgsl_version

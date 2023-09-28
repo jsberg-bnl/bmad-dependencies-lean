@@ -11,7 +11,6 @@ The primary advantages of this are
 * It makes it easier to work with Bmad from the Git tree, including having multiple versions in worktrees
 
 Using these dependencies assumes you have the following packages installed on your system via your system's package manager:
-* [CMake](https://cmake.org/)
 * [FFTW](https://www.fftw.org/)
 * [GSL](https://www.gnu.org/software/gsl/)
 * [HDF5](https://www.hdfgroup.org/solutions/hdf5/)
@@ -33,7 +32,13 @@ export BMAD_USER_INC_DIRS="$p/include;$p/include/fgsl;$p/include/xraylib;$p/lib/
 export BMAD_USER_LIB_DIRS="$p/lib"
 ```
 where `$p` is replaced with the prefix you used in the package installation. Any other modifications to the defaults in `dist_prefs` can be placed in this file as well, rather than modifying `dist_prefs`.
+
+If it was necessary to build cmake, you may also need modify your path with
+```
+export PATH=$p/bin:$PATH
+```
 ## Included packages
+* [CMake](https://cmake.org/), version 3.27.6. This is only built if you don't have a sufficiently recent CMake version.
 * [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Versions 1.0.0, 1.4.0, and 1.5.0 and included; the correct version is built based on the installed version of GSL. While the FGSL documentation claims version 1.5.0 is compatible only with GSL 2.6, it appears to work fine with GSL 2.7.
 * [LAPACK95](https://www.netlib.org/lapack95/).
 * [PLplot](https://plplot.sourceforge.net/)
