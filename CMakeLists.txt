@@ -99,11 +99,8 @@ if(BUILD_LAPACK95)
       endif()
     endforeach()
     string(REGEX MATCHALL "\nOBJAU = [^\n]+\n" lapack95_aux "${lapack95_make}")
-    message("lapack95_aux=${lapack95_aux}")
-    string(REGEX MATCHALL "la_[a-z0-9_]+\\.o" lapack95_aux "${lapack95_aux}")
-    message("lapack95_aux=${lapack95_aux}")
+    string(REGEX MATCHALL "la_[^.]+\\.o" lapack95_aux "${lapack95_aux}")
     string(REGEX REPLACE "(la_[^.]*)\\.o" "${lapack95_srcdir}/\\1.f90" lapack95_aux "${lapack95_aux}")
-    message("lapack95_aux=${lapack95_aux}")
     add_library(lapack95 SHARED
       ${lapack95_srcdir}/f77_lapack_single_double_complex_dcomplex.f90
       ${lapack95_srcdir}/f95_lapack_single_double_complex_dcomplex.f90
