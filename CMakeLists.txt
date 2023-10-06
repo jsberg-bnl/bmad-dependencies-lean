@@ -25,7 +25,7 @@ end program hdf5_test\n")
     file(REMOVE "${test_hdf5_fn}")
     if (NOT test_hdf5)
       set(hdf5_version "1.14.2")
-      execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.gz")
+      execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.bz2")
       include(ExternalProject)
       ExternalProject_Add(hdf5
 	SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}"
