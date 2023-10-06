@@ -37,6 +37,7 @@ end program hdf5_test\n")
 	"--without-zlib"
 	"--enable-shared"
 	"--disable-static"
+	"--disable-tests"
 	BUILD_COMMAND make
 	INSTALL_COMMAND make install)
     endif()
