@@ -1,10 +1,47 @@
 cmake_minimum_required(VERSION 3.12)
 project(bmad-external-dependencies)
 option(BUILD_FGSL "Build FGSL" ON)
+option(BUILD_HDF5 "Build HDF5, if needed" ON)
 option(BUILD_LAPACK95 "Build LAPACK95" ON)
 option(BUILD_PLPLOT "Build PLplot" ON)
 option(BUILD_XRAYLIB "Build xraylib" ON)
 enable_language(Fortran)
+if(BUILD_HDF5)
+  find_package(HDF5 COMPONENTS Fortran)
+  if(HDF5_Fortran_FOUND)
+    set(test_hdf5_fn "${CMAKE_CURRENT_BINARY_DIR}/test-hdf5.f90")
+    file(WRITE "${test_hdf5_fn}" "\
+program hdf5_test\n\
+ use hdf5\n\
+ integer err\n\
+ call h5open_f(err)\n\
+ call h5close_f(err)\n\
+end program hdf5_test\n")
+    try_compile(test_hdf5
+      "${CMAKE_CURRENT_BINARY_DIR}/test-hdf5"
+      SOURCES "${test_hdf5_fn}"
+      LINK_LIBRARIES ${HDF5_Fortran_LIBRARIES}
+      CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${HDF5_Fortran_INCLUDE_DIRS}")
+    file(REMOVE "${test_hdf5_fn}")
+    if (NOT test_hdf5)
+      set(hdf5_version "1.14.2")
+      execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.gz")
+      include(ExternalProject)
+      ExternalProject_Add(hdf5
+	SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}"
+	CONFIGURE_COMMAND
+	"${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}/configure"
+	"--prefix=${CMAKE_INSTALL_PREFIX}"
+	"--enable-fortran"
+	"--enable-cxx"
+	"--without-zlib"
+	"--enable-shared"
+	"--disable-static"
+	BUILD_COMMAND make
+	INSTALL_COMMAND make install)
+    endif()
+  endif()
+endif()
 if (BUILD_FGSL)
   find_package(GSL)
   if (NOT GSL_FOUND)
