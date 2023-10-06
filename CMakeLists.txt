@@ -40,7 +40,11 @@ end program hdf5_test\n")
 	"--disable-tests"
 	BUILD_COMMAND make
 	INSTALL_COMMAND make install)
+    else()
+      add_custom_target(hdf5 COMMAND "true")
     endif()
+  else()
+    add_custom_target(hdf5 COMMAND "true")
   endif()
 endif()
 if (BUILD_FGSL)

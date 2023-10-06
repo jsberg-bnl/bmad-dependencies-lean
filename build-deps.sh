@@ -25,11 +25,13 @@ fi
 unset cv cvmin cvmaj
 mkdir bdl-build
 cd bdl-build
+[ -n "$no_hdf5" ] && dhdf5=-DBUILD_HDF5=OFF
 [ -n "$no_fgsl" ] && dfgsl=-DBUILD_FGSL=OFF
 [ -n "$no_lapack95" ] && dlapack95=-DBUILD_LAPACK95=OFF
 [ -n "$no_plplot" ] && dplplot=-DBUILD_PLPLOT=OFF
 [ -n "$no_xraylib" ] && dxraylib=-DBUILD_XRAYLIB=OFF
-cmake .. -DCMAKE_INSTALL_PREFIX="$prefix" $dfgsl $dlapack95 $dplplot $dxraylib
+cmake .. -DCMAKE_INSTALL_PREFIX="$prefix" $dhdf5 $dfgsl $dlapack95 $dplplot $dxraylib
+[ -z "$no_hdf5" ] && make -j 4 hdf5
 [ -z "$no_fgsl" ] && make fgsl
 [ -z "$no_lapack95" ] && make -j 4 lapack95
 [ -z "$no_plplot" ] && make -j 4 plplot
