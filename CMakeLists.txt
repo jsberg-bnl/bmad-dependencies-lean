@@ -74,6 +74,11 @@ if (BUILD_FGSL)
       "--disable-static"
       BUILD_COMMAND make
       INSTALL_COMMAND make install)
+    if(EXISTS ENV{PKG_CONFIG_PATH})
+      set(fgsl_pc_flags "PKG_CONFIG_PATH=${CMAKE_INSTALL_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+    else()
+      set(fgsl_pc_flags "PKG_CONFIG_PATH=${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
+    endif()
   else()
     add_custom_target(gsl "true")
   endif()
@@ -94,7 +99,8 @@ if (BUILD_FGSL)
     "${CMAKE_CURRENT_BINARY_DIR}/fgsl-${fgsl_version}/configure"
     "--prefix=${CMAKE_INSTALL_PREFIX}"
     "--disable-static"
-    "${fgsl_fcflags}"
+    ${fgsl_fcflags}
+    ${fgsl_pc_flags}
     BUILD_COMMAND make -j 1
     INSTALL_COMMAND make install)
 endif()
