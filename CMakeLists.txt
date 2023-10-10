@@ -67,9 +67,9 @@ if (BUILD_FGSL)
     set(gsl_version "2.7.1")
     execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/gsl-${gsl_version}.tar.gz")
     ExternalProject_Add(gsl
-      SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/gsl-${fgsl_version}"
+      SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/gsl-${gsl_version}"
       CONFIGURE_COMMAND
-      "${CMAKE_CURRENT_BINARY_DIR}/gsl-${fgsl_version}/configure"
+      "${CMAKE_CURRENT_BINARY_DIR}/gsl-${gsl_version}/configure"
       "--prefix=${CMAKE_INSTALL_PREFIX}"
       "--enable-shared"
       "--disable-static"
