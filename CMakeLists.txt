@@ -75,6 +75,7 @@ if (BUILD_FGSL)
       "--disable-static"
       BUILD_COMMAND make
       INSTALL_COMMAND make install)
+    set(fgsl_version "1.5.0")
   else()
     add_custom_target(gsl "true")
   endif()
