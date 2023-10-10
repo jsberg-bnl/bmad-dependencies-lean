@@ -6,6 +6,7 @@ option(BUILD_LAPACK95 "Build LAPACK95" ON)
 option(BUILD_PLPLOT "Build PLplot" ON)
 option(BUILD_XRAYLIB "Build xraylib" ON)
 enable_language(Fortran)
+include(ExternalProject)
 if(BUILD_HDF5)
   find_package(HDF5 COMPONENTS Fortran)
   if(HDF5_Fortran_FOUND)
@@ -26,7 +27,6 @@ end program hdf5_test\n")
     if (NOT test_hdf5)
       set(hdf5_version "1.14.2")
       execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.bz2")
-      include(ExternalProject)
       ExternalProject_Add(hdf5
 	SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}"
 	CONFIGURE_COMMAND
@@ -89,7 +89,6 @@ if (BUILD_FGSL)
   elseif (NOT "${CMAKE_Fortran_FLAGS}" STREQUAL "" AND DEFINED fgsl_fcflags)
     set (fgsl_fcflags "FCFLAGS=${CMAKE_Fortran_FLAGS} ${fgsl_fcflags}")
   endif()
-  include(ExternalProject)
   ExternalProject_Add(fgsl
     SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/fgsl-${fgsl_version}"
     CONFIGURE_COMMAND
