@@ -32,7 +32,7 @@ cd bdl-build
 [ -n "$no_xraylib" ] && dxraylib=-DBUILD_XRAYLIB=OFF
 cmake .. -DCMAKE_INSTALL_PREFIX="$prefix" $dhdf5 $dfgsl $dlapack95 $dplplot $dxraylib
 [ -z "$no_hdf5" ] && make -j 4 hdf5
-[ -z "$no_fgsl" ] && make fgsl
+[ -z "$no_fgsl" ] && make gsl && make fgsl
 [ -z "$no_lapack95" ] && make -j 4 lapack95
 [ -z "$no_plplot" ] && make -j 4 plplot
 [ -z "$no_xarylib" ] && make -j 4 xraylib

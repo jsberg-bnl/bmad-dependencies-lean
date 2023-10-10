@@ -49,20 +49,34 @@ end program hdf5_test\n")
 endif()
 if (BUILD_FGSL)
   find_package(GSL)
+  set(BUILD_GSL OFF)
   if (NOT GSL_FOUND)
-    message(FATAL_ERROR "No gsl library found")
+    set(BUILD_GSL ON)
   endif()
   string(REPLACE "." ";" gsl_ver_parts ${GSL_VERSION})
   list(GET gsl_ver_parts 0 gsl_maj)
   list(GET gsl_ver_parts 1 gsl_min)
-  if (gsl_maj EQUAL 1)
-    set(fgsl_version "1.0.0")
-  elseif(gsl_min EQUAL 5)
+  if (gsl_maj EQUAL 2 AND gsl_min EQUAL 5)
     set(fgsl_version "1.4.0")
-  elseif(gsl_min GREATER 5)
+  elseif (gsl_maj EQUAL 2 AND gsl_min GREATER 5)
     set(fgsl_version "1.5.0")
   else()
-    message(FATAL_ERROR "compatible gsl version not found")
+    set(BUILD_GSL ON)
+  endif()
+  if (BUILD_GSL)
+    set(gsl_version "2.7.1")
+    execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/gsl-${gsl_version}.tar.gz")
+    ExternalProject_Add(gsl
+      SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/gsl-${fgsl_version}"
+      CONFIGURE_COMMAND
+      "${CMAKE_CURRENT_BINARY_DIR}/gsl-${fgsl_version}/configure"
+      "--prefix=${CMAKE_INSTALL_PREFIX}"
+      "--enable-shared"
+      "--disable-static"
+      BUILD_COMMAND make
+      INSTALL_COMMAND make install)
+  else()
+    add_custom_target(gsl "true")
   endif()
   execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/fgsl-${fgsl_version}.tar.gz")
   if (CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
