@@ -25,7 +25,7 @@ end program hdf5_test\n")
       CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${HDF5_Fortran_INCLUDE_DIRS}")
     file(REMOVE "${test_hdf5_fn}")
     if (NOT test_hdf5)
-      set(hdf5_version "1.14.2")
+      set(hdf5_version "1.14.3")
       execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.bz2")
       ExternalProject_Add(hdf5
 	SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}"
