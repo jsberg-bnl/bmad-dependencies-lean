@@ -44,8 +44,8 @@ export PATH=$p/bin:$PATH
 ```
 ## Included packages
 * [CMake](https://cmake.org/), version 3.27.8. This is only built if you don't have a sufficiently recent CMake version.
-* [GSL](https://www.gnu.org/software/gsl/), version 2.7.1, only built if needed.
-* [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Versions 1.4.0 and 1.5.0 and included; the correct version is built based on the installed version of GSL. While the FGSL documentation claims version 1.5.0 is compatible only with GSL 2.6, it appears to work fine with GSL 2.7.
+* [GSL](https://www.gnu.org/software/gsl/), version 2.8, only built if needed.
+* [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Versions 1.4.0, 1.5.0, and 1.6.0 and included; the correct version is built based on the installed version of GSL. While the FGSL documentation claims version 1.6.0 is compatible only with GSL 2.7, it appears to work fine with GSL 2.8.
 * [HDF5](https://www.hdfgroup.org/solutions/hdf5/), version 1.14.3, only built if needed.
 * [LAPACK95](https://www.netlib.org/lapack95/), version 3.0.
 * [PLplot](https://plplot.sourceforge.net/), version 5.15.0.
