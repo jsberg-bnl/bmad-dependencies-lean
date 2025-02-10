@@ -215,14 +215,8 @@ if(BUILD_PLPLOT)
     "-DUSE_RPATH=ON"
     "-DPLD_psc=OFF"
     "-DPL_HAVE_QHULL=OFF"
-    "-DENABLE_tk=OFF"
-    "-DENABLE_tcl=OFF"
-    "-DENABLE_java=OFF"
-    "-DENABLE_python=OFF"
-    "-DENABLE_ada=OFF"
-    "-DENABLE_wxwidgets=OFF"
-    "-DENABLE_cxx=OFF"
-    "-DENABLE_octave=OFF"
+    "-DDEFAULT_NO_BINDINGS=ON"
+    "-DENABLE_fortran=ON"
     "-DBUILD_TEST=OFF")
 endif()
 if(BUILD_XRAYLIB)
