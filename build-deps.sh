@@ -10,7 +10,7 @@ cv=${cv#$cvmaj.}
 cvmin=${cv%%.*}
 if [ -z "$cvmaj" ] || [ -n "${cvmaj#[0-9]}" ] || [ ! "$cvmaj" -ge 3 ] || [ "$cvmaj" -eq 3 ] && [ ! "$cvmin" -ge 12 ]
 then
-    cver=3.27.8
+    cver=3.29.5
     tar xf cmake-$cver.tar.gz
     mkdir cmake-build
     cd cmake-build
