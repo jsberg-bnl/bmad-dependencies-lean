@@ -207,6 +207,12 @@ if(BUILD_PLPLOT)
   set(plplot_version "5.15.0")
   execute_process(
     COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/plplot-${plplot_version}.tar.gz")
+  execute_process(
+    COMMAND "patch" "-p1" "-i" "${CMAKE_CURRENT_SOURCE_DIR}/plplot-${plplot_version}.patch"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/plplot-${plplot_version}")
+  file(REMOVE
+    "${CMAKE_CURRENT_BINARY_DIR}/plplot-${plplot_version}/cmake/modules/TestSignalType.c"
+    "${CMAKE_CURRENT_BINARY_DIR}/plplot-${plplot_version}/cmake/modules/TestSignalType.cmake")
   ExternalProject_Add(plplot
     SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/plplot-${plplot_version}"
     CMAKE_ARGS
