@@ -1,0 +1,42 @@
+diff -r -u plplot-5.15.0-orig/cmake/modules/plplot.cmake plplot-5.15.0-new/cmake/modules/plplot.cmake
+--- plplot-5.15.0-orig/cmake/modules/plplot.cmake	2019-06-01 19:24:33.000000000 -0400
++++ plplot-5.15.0-new/cmake/modules/plplot.cmake	2025-06-07 17:04:49.247433522 -0400
+@@ -250,9 +250,6 @@
+ # system.
+ # AC_CHECK_TYPE(caddr_t, char *)
+ 
+-# Test signal handler return type (mimics AC_TYPE_SIGNAL)
+-include(TestSignalType)
+-
+ include(CheckFunctionExists)
+ check_function_exists(popen HAVE_POPEN)
+ check_function_exists(usleep PL_HAVE_USLEEP)
+diff -r -u plplot-5.15.0-orig/drivers/test-drv-info.c plplot-5.15.0-new/drivers/test-drv-info.c
+--- plplot-5.15.0-orig/drivers/test-drv-info.c	2019-06-01 19:24:33.000000000 -0400
++++ plplot-5.15.0-new/drivers/test-drv-info.c	2025-06-07 17:06:47.915436577 -0400
+@@ -36,10 +36,10 @@
+ #define DRVSPEC_LEN    400
+ 
+ // function prototype
+-RETSIGTYPE catch_segv( int sig );
++void catch_segv( int sig );
+ 
+ // SEGV signal handler
+-RETSIGTYPE
++void
+ catch_segv( int PL_UNUSED( sig ) )
+ {
+     fprintf( stderr, "libltdl error: %s\n", lt_dlerror() );
+diff -r -u plplot-5.15.0-orig/plplot_config.h.in plplot-5.15.0-new/plplot_config.h.in
+--- plplot-5.15.0-orig/plplot_config.h.in	2019-06-01 19:24:33.000000000 -0400
++++ plplot-5.15.0-new/plplot_config.h.in	2025-06-07 17:08:25.003424560 -0400
+@@ -266,9 +266,6 @@
+ // SYMBOL_OBLIQUE font accessible from freetype
+ #define PL_FREETYPE_SYMBOL_OBLIQUE         "@PL_FREETYPE_SYMBOL_OBLIQUE@"
+ 
+-// Define as the return type of signal handlers (`int' or `void').
+-#define RETSIGTYPE                         @RETSIGTYPE@
+-
+ // Location of Source tree
+ #define SOURCE_DIR                         "@SOURCE_DIR@"
+ 
