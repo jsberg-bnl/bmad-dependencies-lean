@@ -141,7 +141,8 @@ end program p250820aa
       SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/lapack-${lapack_version}"
       CMAKE_ARGS
       "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}"
-      "-DBUILD_SHARED_LIBS=ON")
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DCMAKE_INSTALL_LIBDIR=lib")
   else()
     add_custom_target(lapack COMMAND "true")
   endif()
