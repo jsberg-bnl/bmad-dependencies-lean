@@ -136,7 +136,7 @@ end program p250820aa
   if (NOT LAPACK_FOUND OR NOT blasRun EQUAL "0" OR NOT blasRunOut EQUAL "2.828")
     set(lapack_version "3.12.1")
     execute_process(
-      COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack-${plplot_version}.tar.gz")
+      COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack-${lapack_version}.tar.gz")
     ExternalProject_Add(lapack
       SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/lapack-${lapack_version}"
       CMAKE_ARGS
