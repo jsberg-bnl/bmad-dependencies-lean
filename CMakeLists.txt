@@ -110,8 +110,40 @@ endif()
 if(BUILD_LAPACK95)
   set(BLA_VENDOR "Generic")
   find_package(LAPACK)
-  if (NOT LAPACK_FOUND)
-    message(FATAL_ERROR "LAPACK library not found")
+  if (LAPACK_FOUND)
+    find_package(BLAS COMPONENTS Fortran)
+    if (NOT BLAS_FOUND)
+      message(FATAL_ERROR "LAPACK found, but BLAS was not found")
+    endif()
+    try_run(blasRun blasCompile
+      SOURCE_FROM_CONTENT "p250820a.f90" "program p250820aa
+  implicit none
+  real(kind(0d0)), dimension(8) :: x
+  real(kind(0d0)) :: n
+  real(kind(0d0)) :: dnrm2
+  external dnrm2
+
+  x = 1d0
+  write(*,'(f5.3)') dnrm2(size(x),x,1)
+
+end program p250820aa
+"
+      LINK_LIBRARIES BLAS::BLAS
+      COMPILE_OUTPUT_VARIABLE blasCompileOut
+      RUN_OUTPUT_VARIABLE blasRunOut
+    )
+  endif()
+  if (NOT LAPACK_FOUND OR NOT blasRun EQUAL "0" OR NOT blasRunOut EQUAL "2.828")
+    set(lapack_version "3.12.1")
+    execute_process(
+      COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack-${plplot_version}.tar.gz")
+    ExternalProject_Add(lapack
+      SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/lapack-${lapack_version}"
+      CMAKE_ARGS
+      "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}"
+      "-DBUILD_SHARED_LIBS=ON")
+  else()
+    add_custom_target(lapack COMMAND "true")
   endif()
   if (NOT LAPACK95_FOUND)
     execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack95.tgz")
@@ -202,6 +234,9 @@ if(BUILD_LAPACK95)
       ${lapack95_module_dir}/la_precision.mod
       DESTINATION lib/fortran/modules/lapack95)
   endif()
+else()
+  add_custom_target(lapack COMMAND "true")
+  add_custom_target(lapack95 COMMAND "true")
 endif()
 if(BUILD_PLPLOT)
   set(plplot_version "5.15.0")

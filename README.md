@@ -17,7 +17,7 @@ Using these dependencies assumes you have the following packages installed on yo
 * [HDF5](https://www.hdfgroup.org/solutions/hdf5/)
 * [LAPACK](https://www.netlib.org/lapack/)
 
-Some older systems will have issues with some of these packages. The CMake version may be too old. Since Bmad uses the more recent API for FGSL, an installed GSL version that is too old can be a problem. Finally on systems that require a custom-installed compiler for Bmad, the Fortran module files installed with HDF5 may not be compatible with the compiler being used. For these cases, recent versions of CMake, GSL, and HDF5 are also included, and should be built if needed (note this process has only been tested on Red Hat Enterprise Linux 7).
+Some older (and, it turns out, newer) systems will have issues with some of these packages. The CMake version may be too old. Since Bmad uses the more recent API for FGSL, an installed GSL version that is too old can be a problem. Finally on systems that require a custom-installed compiler for Bmad, the Fortran module files installed with HDF5 may not be compatible with the compiler being used. For these cases, recent versions of CMake, GSL, and HDF5 are also included, and should be built if needed (note this process has only been tested on Red Hat Enterprise Linux 7).
 
 It also assumes you are building Bmad using the [PLplot](https://plplot.sourceforge.net/) plotting library (included in these packages) rather than using [PGPLOT](https://sites.astro.caltech.edu/~tjp/pgplot/)
 ## Build instructions
@@ -48,6 +48,7 @@ export PATH=$p/bin:$PATH
 * [FFTW](https://www.fftw.org/), version 3.3.10, only built if needed.
 * [FGSL](https://doku.lrz.de/fgsl-a-fortran-interface-to-the-gnu-scientific-library-10746505.html). Versions 1.4.0, 1.5.0, and 1.6.0 and included; the correct version is built based on the installed version of GSL. While the FGSL documentation claims version 1.6.0 is compatible only with GSL 2.7, it appears to work fine with GSL 2.8.
 * [HDF5](https://www.hdfgroup.org/solutions/hdf5/), version 1.14.3, only built if needed.
+* [LAPACK](https://github.com/Reference-LAPACK/lapack), version 3.12.1. Needs to be build on RHEL9 and friends because their LAPACK package is [broken](https://access.redhat.com/solutions/7105917).
 * [LAPACK95](https://www.netlib.org/lapack95/), version 3.0.
 * [PLplot](https://plplot.sourceforge.net/), version 5.15.0.
 * [xraylib](https://github.com/tschoonj/xraylib), version 4.1.3.
