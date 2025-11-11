@@ -115,19 +115,10 @@ if(BUILD_LAPACK95)
     if (NOT BLAS_FOUND)
       message(FATAL_ERROR "LAPACK found, but BLAS was not found")
     endif()
+    set(test_blas_dir "${CMAKE_CURRENT_BINARY_DIR}/test-blas")
+    file(MAKE_DIRECTORY "${test_blas_dir}")
     try_run(blasRun blasCompile
-      SOURCE_FROM_CONTENT "p250820a.f90" "program p250820aa
-  implicit none
-  real(kind(0d0)), dimension(8) :: x
-  real(kind(0d0)) :: n
-  real(kind(0d0)) :: dnrm2
-  external dnrm2
-
-  x = 1d0
-  write(*,'(f5.3)') dnrm2(size(x),x,1)
-
-end program p250820aa
-"
+      "${test_blas_dir}" "${CMAKE_SOURCE_DIR}/tests/test-blas.f90"
       LINK_LIBRARIES BLAS::BLAS
       COMPILE_OUTPUT_VARIABLE blasCompileOut
       RUN_OUTPUT_VARIABLE blasRunOut
