@@ -33,7 +33,7 @@ For this to make sense, you should have some understanding of building Bmad; see
 
 First you need to specify environment variables to tell Bmad where to find the packages. While you could do this by editing `dist_prefs`, I recommend a different mechanism. Instead, create a file called `user_prefs`, and either place in the `util` directory of the Bmad distribution, or instead place it anywhere you like (and name it whatever you like), and set the environment variable `BMAD_USER_PREFS` to the full path (including the filename) of the file. Within that file, put the following lines:
 ```
-export BMAD_USER_INC_DIRS="$p/include;$p/include/fgsl;$p/include/xraylib;$p/lib/fortran/modules/lapack95;$p/lib/fortran/modules/plplot"
+export BMAD_USER_INC_DIRS="$p/include;$p/include/fgsl;$p/include/xraylib;$p/lib/fortran/modules/plplot"
 export BMAD_USER_LIB_DIRS="$p/lib"
 ```
 where `$p` is replaced with the prefix you used in the package installation. Any other modifications to the defaults in `dist_prefs` can be placed in this file as well, rather than modifying `dist_prefs`.

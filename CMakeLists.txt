@@ -224,7 +224,7 @@ if(BUILD_LAPACK95)
       ${lapack95_module_dir}/f95_lapack.mod
       ${lapack95_module_dir}/la_auxmod.mod
       ${lapack95_module_dir}/la_precision.mod
-      DESTINATION lib/fortran/modules/lapack95)
+      DESTINATION include)
   endif()
 else()
   add_custom_target(lapack COMMAND "true")
