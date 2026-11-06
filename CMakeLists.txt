@@ -249,6 +249,7 @@ if(BUILD_PLPLOT)
     "-DPLD_pscairo=ON"
     "-DPLD_pngcairo=ON"
     "-DPLD_svgcairo=ON"
+    "-DPLD_extcairo=ON"
     "-DPLD_xwin=ON"
     "-DHAVE_SHAPELIB=OFF"
     "-DCMAKE_VERBOSE_MAKEFILE=true"
