@@ -26,7 +26,7 @@ end program hdf5_test\n")
     file(REMOVE "${test_hdf5_fn}")
     if (NOT test_hdf5)
       set(hdf5_version "1.14.3")
-      execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.bz2")
+      file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/hdf5-${hdf5_version}.tar.bz2")
       ExternalProject_Add(hdf5
 	SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/hdf5-${hdf5_version}"
 	CONFIGURE_COMMAND
@@ -67,7 +67,7 @@ if (BUILD_FGSL)
   endif()
   if (BUILD_GSL)
     set(gsl_version "2.8")
-    execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/gsl-${gsl_version}.tar.gz")
+    file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/gsl-${gsl_version}.tar.gz")
     ExternalProject_Add(gsl
       SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/gsl-${gsl_version}"
       CONFIGURE_COMMAND
@@ -85,7 +85,7 @@ if (BUILD_FGSL)
   else()
     add_custom_target(gsl "true")
   endif()
-  execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/fgsl-${fgsl_version}.tar.gz")
+  file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/fgsl-${fgsl_version}.tar.gz")
   if (CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
     set(fgsl_fcflags "-ffree-line-length-none")
   endif()
@@ -126,8 +126,7 @@ if(BUILD_LAPACK95)
   endif()
   if (NOT LAPACK_FOUND OR NOT blasRun EQUAL "0" OR NOT blasRunOut EQUAL "2.828")
     set(lapack_version "3.12.1")
-    execute_process(
-      COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack-${lapack_version}.tar.gz")
+    file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/lapack-${lapack_version}.tar.gz")
     ExternalProject_Add(lapack
       SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/lapack-${lapack_version}"
       CMAKE_ARGS
@@ -138,7 +137,7 @@ if(BUILD_LAPACK95)
     add_custom_target(lapack COMMAND "true")
   endif()
   if (NOT LAPACK95_FOUND)
-    execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/lapack95.tgz")
+    file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/lapack95.tgz")
     execute_process(COMMAND "sh" "${CMAKE_CURRENT_SOURCE_DIR}/patch-lapack95.sh")
     set(lapack_deprecated "ggsvp" "tzrqf" "geqpf" "ggsvd" "gegv" "gegs" "gelsx")
     set(lapack95_srcdir "${CMAKE_BINARY_DIR}/LAPACK95/SRC")
@@ -232,8 +231,7 @@ else()
 endif()
 if(BUILD_PLPLOT)
   set(plplot_version "5.15.0")
-  execute_process(
-    COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/plplot-${plplot_version}.tar.gz")
+  file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/plplot-${plplot_version}.tar.gz")
   execute_process(
     COMMAND "patch" "-p1" "-i" "${CMAKE_CURRENT_SOURCE_DIR}/plplot-${plplot_version}.patch"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/plplot-${plplot_version}")
@@ -263,7 +261,7 @@ if(BUILD_PLPLOT)
 endif()
 if(BUILD_XRAYLIB)
   set(xraylib_version "4.1.3")
-  execute_process(COMMAND "tar" "xf" "${CMAKE_CURRENT_SOURCE_DIR}/xraylib-${xraylib_version}.tar.gz")
+  file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/xraylib-${xraylib_version}.tar.gz")
   set(xraylib_srcdir "${CMAKE_CURRENT_BINARY_DIR}/xraylib-xraylib-${xraylib_version}")
   execute_process(
     COMMAND "autoreconf" "--install"
