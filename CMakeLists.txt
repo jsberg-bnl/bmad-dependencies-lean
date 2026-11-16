@@ -263,12 +263,17 @@ if(BUILD_XRAYLIB)
   set(xraylib_version "4.1.3")
   file(ARCHIVE_EXTRACT INPUT "${CMAKE_CURRENT_SOURCE_DIR}/xraylib-${xraylib_version}.tar.gz")
   set(xraylib_srcdir "${CMAKE_CURRENT_BINARY_DIR}/xraylib-xraylib-${xraylib_version}")
+  find_program(sh sh REQUIRED)
   execute_process(
-    COMMAND "autoreconf" "--install"
+    COMMAND "${sh}" -l -c "autoreconf --install"
     WORKING_DIRECTORY "${xraylib_srcdir}")
+  set(xraylib_build  "${CMAKE_CURRENT_BINARY_DIR}/xraylib-build")
+  file(RELATIVE_PATH xraylib_srcdir_rel "${xraylib_build}" "${xraylib_srcdir}")
   ExternalProject_Add(xraylib
     SOURCE_DIR "${xraylib_srcdir}"
+    BINARY_DIR "${xraylib_build}"
     CONFIGURE_COMMAND
+    "${sh}" -l -c "${xraylib_srcdir_rel}/configure"
     "${xraylib_srcdir}/configure"
     "--prefix=${CMAKE_INSTALL_PREFIX}"
     "--disable-idl"
