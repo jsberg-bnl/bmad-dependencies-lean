@@ -273,8 +273,8 @@ if(BUILD_XRAYLIB)
     SOURCE_DIR "${xraylib_srcdir}"
     BINARY_DIR "${xraylib_build}"
     CONFIGURE_COMMAND
-    "${sh}" -l -c "${xraylib_srcdir_rel}/configure"
-    "${xraylib_srcdir}/configure"
+    "${sh}" -l -c "${xraylib_srcdir_rel}/configure \"$@\""
+    "${xraylib_srcdir_rel}/configure"
     "--prefix=${CMAKE_INSTALL_PREFIX}"
     "--disable-idl"
     "--disable-java"
