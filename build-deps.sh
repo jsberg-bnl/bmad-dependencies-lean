@@ -30,7 +30,7 @@ cd bdl-build
 [ -n "$no_lapack95" ] && dlapack95=-DBUILD_LAPACK95=OFF
 [ -n "$no_plplot" ] && dplplot=-DBUILD_PLPLOT=OFF
 [ -n "$no_xraylib" ] && dxraylib=-DBUILD_XRAYLIB=OFF
-cmake .. -DCMAKE_INSTALL_PREFIX="$prefix" $dhdf5 $dfgsl $dlapack95 $dplplot $dxraylib
+cmake -G "Unix Makefiles" .. -DCMAKE_INSTALL_PREFIX="$prefix" $dhdf5 $dfgsl $dlapack95 $dplplot $dxraylib
 [ -z "$no_hdf5" ] && make -j 4 hdf5
 [ -z "$no_fgsl" ] && make gsl && make fgsl
 [ -z "$no_lapack95" ] && make -j 4 lapack && make -j 4 lapack95
